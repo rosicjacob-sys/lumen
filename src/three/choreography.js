@@ -39,7 +39,7 @@ export function useVialChoreography() {
     })
 
     mm.add(MQ_MOBILE, () => {
-      gsap.set(vialStore, { x: 0.16, y: -0.34, scale: 0.5, spotlight: 0, pose: 0, swirl: 0 })
+      gsap.set(vialStore, { x: 0.18, y: -0.42, scale: 0.46, spotlight: 0, pose: 0, swirl: 0 })
       intro()
       wp('#catalog', { x: 0.28, y: 0.32, scale: 0.24 })
       wp('#process', { x: 0.02, y: 0.24, scale: 0.46, pose: 1 }, 'top 80%', 'top 12%')
@@ -52,9 +52,9 @@ export function useVialChoreography() {
 
     const staticPose = (mobile) => () =>
       gsap.set(vialStore, {
-        x: mobile ? 0.16 : 0.26,
-        y: mobile ? -0.34 : 0,
-        scale: mobile ? 0.5 : 1,
+        x: mobile ? 0.18 : 0.26,
+        y: mobile ? -0.42 : 0,
+        scale: mobile ? 0.46 : 1,
         intro: 1,
         swirl: 0,
         spotlight: 0,

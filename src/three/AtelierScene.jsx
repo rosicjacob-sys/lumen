@@ -88,6 +88,19 @@ export default function AtelierScene({ reduced, mobile }) {
     three.invalidate()
   })
 
+  // Reduced motion: a peptide selection snaps the powder color (no lerp
+  // frames exist) — compose one fresh frame so the static pose updates.
+  useEffect(() => {
+    if (!reduced) return
+    const onSnap = () => {
+      apply(three, 0.85)
+      three.invalidate()
+    }
+    window.addEventListener('vial-color-snap', onSnap)
+    return () => window.removeEventListener('vial-color-snap', onSnap)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reduced])
+
   return (
     <>
       <ambientLight ref={fillRef} intensity={0.6} color="#e8ecf2" />

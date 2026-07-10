@@ -1423,15 +1423,15 @@ button {
     width: 100vw;
   }
   .vf-vial {
-    right: 18vw;
-    top: 58vh;
-    width: clamp(80px, 24vw, 110px);
+    right: 7vw;
+    top: 75vh;
+    width: clamp(64px, 22vw, 92px);
   }
   .vf-shadow {
-    right: 15vw;
-    top: calc(58vh + 260px);
-    width: 130px;
-    height: 24px;
+    right: 5vw;
+    top: calc(75vh + 210px);
+    width: 110px;
+    height: 20px;
   }
   .trust-row {
     max-width: 52vw;

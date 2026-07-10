@@ -19,7 +19,14 @@ export const vialStore = {
   targetDeep: new THREE.Color('#0B3D91'),
 }
 
-export function setVialColor(hex, deepHex) {
+export function setVialColor(hex, deepHex, snap = false) {
   vialStore.targetColor.set(hex)
   vialStore.targetDeep.set(deepHex)
+  if (snap) {
+    // Reduced motion renders on demand: no frames means no lerp, so snap the
+    // color instantly and ask the scene for one composed frame.
+    vialStore.color.set(hex)
+    vialStore.colorDeep.set(deepHex)
+    window.dispatchEvent(new CustomEvent('vial-color-snap'))
+  }
 }

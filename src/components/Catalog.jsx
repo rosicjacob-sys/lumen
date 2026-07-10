@@ -19,7 +19,7 @@ export default function Catalog() {
   // Keep the vial's powder AND the page accent synced to the active peptide —
   // the whole monochrome UI takes the compound's color.
   useEffect(() => {
-    setVialColor(active.hue, active.hueDeep)
+    setVialColor(active.hue, active.hueDeep, reducedMotion())
     const root = document.documentElement.style
     // powder color drives the 3D; the UI accent stays contrast-safe
     root.setProperty('--accent', active.ui || active.hue)
