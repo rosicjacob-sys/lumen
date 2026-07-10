@@ -41,6 +41,8 @@ export const PEPTIDES = [
     tag: 'GGG TRI-AGONIST',
     hue: '#F2F4F7', // white powder (rendered as bright neutral)
     hueDeep: '#B9C0C9',
+    ui: '#5E6B7E', // UI accent must stay readable on the light canvas
+    uiDeep: '#39434f',
     powder: 'white',
     seq: '39-aa peptide · GIP/GLP-1/GCG',
     purity: 99.5,

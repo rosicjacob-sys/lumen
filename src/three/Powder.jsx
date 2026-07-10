@@ -39,14 +39,15 @@ export default function Powder({ count = 620 }) {
       rx[i * 3] = Math.cos(a) * rr
       rx[i * 3 + 1] = -0.78 + Math.pow(rnd(), 1.6) * 0.62
       rx[i * 3 + 2] = Math.sin(a) * rr
-      // helix: two strands + a light scatter cloud
+      // helix: two strands pouring UP and OUT of the vial neck + light scatter
       const frac = i / count
       const strand = i % 2
       const cloud = i % 7 === 0
       const ang = frac * TWIST + strand * Math.PI
-      const hr = cloud ? 0.5 + rnd() * 0.5 : 0.52 + (rnd() - 0.5) * 0.12
+      // radius grows with height so the chain clears the glass (vial r=0.5)
+      const hr = cloud ? 0.75 + rnd() * 0.65 : 0.35 + frac * 0.62 + (rnd() - 0.5) * 0.07
       hx[i * 3] = Math.cos(ang) * hr
-      hx[i * 3 + 1] = -1.05 + frac * 2.15 + (rnd() - 0.5) * (cloud ? 0.5 : 0.08)
+      hx[i * 3 + 1] = -0.2 + frac * 2.75 + (rnd() - 0.5) * (cloud ? 0.55 : 0.07)
       hx[i * 3 + 2] = Math.sin(ang) * hr
       depth[i] = rnd()
       size[i] = 0.5 + rnd() * 0.9
@@ -79,7 +80,9 @@ export default function Powder({ count = 620 }) {
     // lerp powder color toward the active peptide, recolor while it moves
     s.color.lerp(s.targetColor, 0.08)
     s.colorDeep.lerp(s.targetDeep, 0.08)
-    if (s.color.distanceToSquared(prevColor.current) > 1e-5) recolor()
+    const pc = prevColor.current
+    const dc = (s.color.r - pc.r) ** 2 + (s.color.g - pc.g) ** 2 + (s.color.b - pc.b) ** 2
+    if (dc > 1e-5) recolor()
 
     const t = state.clock.elapsedTime
     const e = easeInOutCubic(Math.min(s.swirl, 1))
