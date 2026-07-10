@@ -1,0 +1,24 @@
+node_modules/
+.next/
+dist/
+build/
+.venv/
+venv/
+.turbo/
+.cache/
+*.log
+logs/
+.DS_Store
+.env
+.env.*
+!.env.example
+data/
+.data/
+*.db
+*.db-wal
+*.db-shm
+*.tsbuildinfo
+# large media — back these up via Backblaze, not GitHub (100MB file limit)
+*.mp4
+*.mov
+*.zip
