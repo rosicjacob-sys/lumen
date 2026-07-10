@@ -521,37 +521,13 @@ button {
 .vf-inner.vf-hidden {
   opacity: 0;
 }
-.vf-vial {
+.vf-helix {
   position: absolute;
-  right: 16vw;
-  top: 26vh;
-  width: clamp(90px, 11vw, 170px);
-  aspect-ratio: 0.42;
-  border-radius: 16px 16px 22px 22px;
-  background: linear-gradient(180deg, rgba(201, 154, 63, 0.35), rgba(201, 154, 63, 0.18) 55%, rgba(201, 154, 63, 0.3));
-  border: 1.5px solid rgba(20, 23, 26, 0.18);
-  box-shadow: inset -10px -14px 26px rgba(20, 23, 26, 0.12), inset 10px 14px 24px rgba(255, 255, 255, 0.65),
-    0 40px 80px -32px rgba(20, 23, 26, 0.35);
-}
-.vf-cap {
-  position: absolute;
-  top: -9%;
-  left: 8%;
-  right: 8%;
-  height: 12%;
-  border-radius: 8px;
-  background: linear-gradient(180deg, #dfe3e8, #aeb4bc);
-}
-.vf-powder {
-  position: absolute;
-  left: 7%;
-  right: 7%;
-  bottom: 6%;
-  height: 38%;
-  border-radius: 6px 6px 14px 14px;
-  background: linear-gradient(180deg, var(--accent), var(--accent-deep));
-  opacity: 0.85;
-  transition: background 0.4s ease;
+  right: 13vw;
+  top: 22vh;
+  width: clamp(110px, 13vw, 190px);
+  height: auto;
+  filter: drop-shadow(0 30px 40px rgba(20, 23, 26, 0.18));
 }
 .vf-shadow {
   position: absolute;
@@ -1428,10 +1404,10 @@ button {
     top: 34vh;
     width: 100vw;
   }
-  .vf-vial {
-    right: 7vw;
-    top: 75vh;
-    width: clamp(64px, 22vw, 92px);
+  .vf-helix {
+    right: 8vw;
+    top: 72vh;
+    width: clamp(64px, 20vw, 88px);
   }
   .vf-shadow {
     right: 5vw;

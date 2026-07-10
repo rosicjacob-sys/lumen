@@ -24,9 +24,10 @@ class GLErrorBoundary extends Component {
   }
 }
 
-/** CSS-gradient vial fallback, anchored to the hero, fading as it scrolls away.
- * Rendered under the canvas at all times — the page never shows a blank hole. */
-function FallbackVial({ show }) {
+/** Static double-helix fallback (SVG), anchored to the hero, fading as it
+ * scrolls away. Rendered under the canvas at all times — the page never shows
+ * a blank hole. Colors ride the live --accent var. */
+function FallbackHelix({ show }) {
   const ref = useRef(null)
   useEffect(() => {
     const el = ref.current
@@ -39,13 +40,23 @@ function FallbackVial({ show }) {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+  const rungs = [14, 34, 54, 74, 94, 114, 134, 154, 174]
+  const xa = (y) => 40 + Math.sin(y / 30) * 28
+  const xb = (y) => 40 - Math.sin(y / 30) * 28
   return (
     <div ref={ref} className="vial-fallback" aria-hidden="true">
       <div className={`vf-inner ${show ? '' : 'vf-hidden'}`}>
-        <div className="vf-vial">
-          <div className="vf-cap" />
-          <div className="vf-powder" />
-        </div>
+        <svg className="vf-helix" viewBox="0 0 80 190" fill="none">
+          {rungs.map((y) => (
+            <g key={y}>
+              <line x1={xa(y)} y1={y} x2={xb(y)} y2={y} stroke="var(--accent)" strokeWidth="2.4" strokeLinecap="round" opacity="0.55" />
+              <circle cx={xa(y)} cy={y} r="4.2" fill="#aeb6c0" />
+              <circle cx={xb(y)} cy={y} r="4.2" fill="#8d97a3" />
+              <circle cx={(xa(y) + xb(y)) / 2 - (xa(y) - xb(y)) / 4} cy={y} r="2.6" fill="var(--accent)" />
+              <circle cx={(xa(y) + xb(y)) / 2 + (xa(y) - xb(y)) / 4} cy={y} r="2.6" fill="var(--accent-deep)" />
+            </g>
+          ))}
+        </svg>
         <div className="vf-shadow" />
       </div>
     </div>
@@ -91,7 +102,7 @@ export default function AtelierStage() {
   const showGL = glOk && !failed
   return (
     <>
-      <FallbackVial show={!showGL || !ready} />
+      <FallbackHelix show={!showGL || !ready} />
       <div ref={stageRef} className="vial-stage" aria-hidden="true">
         {showGL && sized && (
           <GLErrorBoundary onFail={() => setFailed(true)}>

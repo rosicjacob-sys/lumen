@@ -80,7 +80,7 @@ export default function Order() {
         <div className="order-grid">
           <div className="order-side" aria-hidden="true">
             <p className="order-side-note mono-label">
-              THE VIAL WEARS THE POWDER YOU PICK
+              THE COMPOUND WEARS THE COLOR YOU PICK
             </p>
           </div>
           <div className="order-right">

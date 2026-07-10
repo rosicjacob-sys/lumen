@@ -1,15 +1,22 @@
 import * as THREE from 'three'
 
-// Single mutable store for the persistent vial. GSAP + the cart write it,
-// the R3F scene reads it every frame. x/y are viewport-fraction offsets from
-// center (+x right, +y up); scale 1 = designed hero size.
+// Single mutable store for the persistent compound (powder + DNA particle
+// system). GSAP + the cart write it, the R3F scene reads it every frame.
+// x/y are viewport-fraction offsets from center; scale 1 = designed hero size.
+// Shape is a weight vector — waypoints scrub full profiles; the frame loop
+// normalizes so mid-scrub sums never distort the blend.
 export const vialStore = {
   x: 0.26,
   y: 0.0,
   scale: 1,
   intro: 0, // 0 -> 1 entrance
-  swirl: 0, // 0 -> 1 powder lifts into the molecular-helix cloud (signature)
-  spotlight: 0, // 0 -> 1 dramatic verification-scene lighting
+  // shape weights (blended, normalized per frame)
+  wCloud: 1,
+  wMound: 0,
+  wHelix: 0,
+  wTorus: 0,
+  rungReveal: 0, // 0 -> 1: base pairs "click in" during the pinned scene
+  spotlight: 0, // 0 -> 1 dark verification lighting
   pose: 0, // mobile two-pose scrub
   dropY: 0,
   // Powder color — lerped toward the active peptide's hue on selection.
