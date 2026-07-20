@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "devportal": "node scripts/build-dev-portal.mjs",
-    "deploy": "sh scripts/deploy-pages.sh"
+    "deploy": "sh scripts/deploy-vercel.sh nocta-dev"
   },
   "dependencies": {
     "@fontsource-variable/archivo": "^5.2.0",
