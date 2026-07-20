@@ -101,7 +101,7 @@ export default function Order() {
                     aria-checked={selected}
                     tabIndex={selected ? 0 : -1}
                     onClick={() => select(p.id)}
-                    style={{ '--pep': p.hue, '--pep-deep': p.uiDeep || p.hueDeep }}
+                    style={{ '--pep': p.emit, '--pep-deep': p.emit }}
                   >
                     <span className="order-swatch" aria-hidden="true" />
                     <span className="order-tag mono-label">
@@ -126,7 +126,7 @@ export default function Order() {
             </p>
             <p className="order-ruo">
               For laboratory research use only — not for human or veterinary use. Bulk and standing
-              lab orders: <a href="mailto:lab@strata.works">lab@strata.works</a>.
+              lab orders: <a href="mailto:lab@nocta.bio">lab@nocta.bio</a>.
             </p>
           </div>
         </div>

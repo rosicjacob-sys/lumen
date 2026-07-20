@@ -7,107 +7,69 @@ import { MQ_DESKTOP, MQ_MOBILE, MQ_REDUCED_DESKTOP, MQ_REDUCED_MOBILE } from '..
 gsap.registerPlugin(ScrollTrigger)
 
 /**
- * STRATA v2 choreography: shape-weight profiles + a scroll-driven camera rig
- * (dolly/height/orbit/focus) scrubbed per section. The pinned process scene
- * owns weights, rungReveal, and the orbit sweep inside its gap (Process.jsx).
+ * NOCTA choreography. ONE global scrub writes `progress` 0..1 across the whole
+ * document — the camera descends the strand and the wavefront sequences it as
+ * you scroll. Per-section waypoints only reframe the camera (dolly/lateral/
+ * look) and trigger the verify scanner + order column reveal + powder calm.
+ * The pinned synthesis lives in Process.jsx.
  */
 export function useVialChoreography() {
   useLayoutEffect(() => {
     const mm = gsap.matchMedia()
 
-    const wp = (trigger, vars, start = 'top bottom', end = 'top 25%') =>
+    const wp = (trigger, vars, start = 'top bottom', end = 'top 30%') =>
       gsap.to(vialStore, {
-        ...vars,
-        ease: 'none',
-        immediateRender: false,
-        scrollTrigger: { trigger, start, end, scrub: 0.5, invalidateOnRefresh: true },
+        ...vars, ease: 'none', immediateRender: false,
+        scrollTrigger: { trigger, start, end, scrub: 0.6, invalidateOnRefresh: true },
       })
-
-    const intro = () =>
-      gsap.to(vialStore, { intro: 1, duration: 1.7, ease: 'power3.out', delay: 0.15 })
 
     mm.add(MQ_DESKTOP, () => {
       gsap.set(vialStore, {
-        x: 0.26, y: 0, scale: 1, spotlight: 0, pose: 0,
-        wCloud: 1, wMound: 0, wHelix: 0, wTorus: 0, rungReveal: 0,
-        camZ: 7.5, camY: 0.15, camOrbit: 0, camFocus: 0, lookY: 0,
+        progress: 0, intro: 0, dim: 1,
+        camZ: 9.4, camX: 0.5, camRoll: 0, lookLead: 0.02,
+        scanner: 0, columnReveal: 0, powderCalm: 0,
       })
-      intro()
-      // cloud -> settled mound; camera sinks low and pushes in a touch
-      wp('#catalog', {
-        x: -0.405, y: -0.02, scale: 0.53, wCloud: 0, wMound: 1, wHelix: 0, wTorus: 0,
-        camZ: 7.1, camY: -0.4, lookY: -0.08,
+      gsap.to(vialStore, { intro: 1, duration: 1.6, ease: 'power2.out', delay: 0.2 })
+      // the spine: whole-document scrub descends the strand + writes it
+      gsap.to(vialStore, {
+        progress: 1, ease: 'none',
+        scrollTrigger: { trigger: 'main', start: 'top top', end: 'bottom bottom', scrub: 0.6, invalidateOnRefresh: true },
       })
-      // approach the pin as a mound; camera returns to eye level
-      wp('#process', {
-        x: 0.24, y: 0, scale: 0.85, wMound: 1, wCloud: 0, wHelix: 0, wTorus: 0,
-        camZ: 6.1, camY: 0.05, lookY: 0, camFocus: 0.5, camOrbit: -0.3,
-      })
-      // dark verification: low angle looking up at the sequenced helix
-      wp('#verify', {
-        x: 0.33, y: 0, scale: 1.0, spotlight: 1,
-        wHelix: 1, wMound: 0, wCloud: 0, wTorus: 0, rungReveal: 1,
-        camZ: 6.4, camY: -0.7, lookY: 0.35, camFocus: 0.3, camOrbit: 0.15,
-      }, 'top 85%', 'top 30%')
-      // relax beside the ledger
-      wp('#reviews', {
-        x: 0.32, y: 0.05, scale: 0.42, spotlight: 0,
-        wCloud: 1, wHelix: 0, wMound: 0, wTorus: 0,
-        camZ: 7.3, camY: 0.1, lookY: 0, camFocus: 0, camOrbit: 0,
-      }, 'top 95%', 'top 45%')
-      // dose ring beside the buy box; slight top-down
-      wp('#order', {
-        x: -0.3, y: 0.02, scale: 0.5, wTorus: 1, wCloud: 0, wHelix: 0, wMound: 0,
-        camZ: 6.8, camY: 0.9, lookY: -0.1,
-      })
-      const arriveD = ScrollTrigger.create({
-        trigger: '#order', start: 'top 55%', once: true,
-        onEnter: () => window.dispatchEvent(new CustomEvent('vial-arrived')),
-      })
-      wp('#final-cta', {
-        x: 0.26, y: -0.03, scale: 0.62, wCloud: 1, wTorus: 0, dropY: 0,
-        camZ: 7.5, camY: 0.15, lookY: 0, camOrbit: 0, camFocus: 0,
-      }, 'top bottom', 'top 45%')
-      wp('#site-footer', { y: -0.95 }, 'top bottom', 'top 60%')
-      return () => arriveD.kill()
+      // camera framing per station. `dim` + a farther/rightward camera let the
+      // strand shrink & recede over content-dense sections, then swell bright
+      // at the two set-pieces (hero + process synthesis).
+      wp('#catalog', { camZ: 13.5, camX: -2.0, dim: 0.35, lookLead: 0.03, powderCalm: 0 })
+      wp('#process', { camZ: 6.4, camX: 0.55, dim: 1, lookLead: 0.045, powderCalm: 0 })
+      wp('#verify', { camZ: 12.5, camX: -1.7, dim: 0.4, lookLead: 0.02, scanner: 1, powderCalm: 0.6 }, 'top 80%', 'top 25%')
+      wp('#reviews', { camZ: 13.5, camX: -2.0, dim: 0.35, scanner: 0, powderCalm: 0.55 }, 'top 95%', 'top 45%')
+      wp('#order', { camZ: 13.5, camX: -1.9, dim: 0.35, camRoll: 0.02, columnReveal: 1, powderCalm: 0.85 })
+      wp('#final-cta', { camZ: 9.6, camX: 0.4, dim: 0.85, camRoll: 0, columnReveal: 0.4, powderCalm: 1 }, 'top bottom', 'top 45%')
     })
 
     mm.add(MQ_MOBILE, () => {
       gsap.set(vialStore, {
-        x: 0.18, y: -0.42, scale: 0.5, spotlight: 0, pose: 0,
-        wCloud: 1, wMound: 0, wHelix: 0, wTorus: 0, rungReveal: 0,
-        camZ: 7.5, camY: 0.15, camOrbit: 0, camFocus: 0, lookY: 0,
+        progress: 0, intro: 0,
+        camZ: 15, camX: -0.6, camRoll: 0, lookLead: 0.02, dim: 0.7,
+        scanner: 0, columnReveal: 0, powderCalm: 0,
       })
-      intro()
-      wp('#catalog', { x: 0.28, y: 0.32, scale: 0.26, wCloud: 0, wMound: 1, wHelix: 0, wTorus: 0 })
-      wp('#process', {
-        x: 0.02, y: 0.24, scale: 0.5, pose: 1,
-        wHelix: 1, wMound: 0, wCloud: 0, wTorus: 0, rungReveal: 1, camOrbit: -0.25,
-      }, 'top 80%', 'top 12%')
-      wp('#verify', { x: 0, y: 0.26, scale: 0.56, spotlight: 1, pose: 0, camY: -0.4, lookY: 0.25 }, 'top 85%', 'top 28%')
-      wp('#reviews', { x: 0.3, y: 0.32, scale: 0.26, spotlight: 0, wCloud: 1, wHelix: 0, rungReveal: 0, camY: 0.15, lookY: 0, camOrbit: 0 }, 'top 95%', 'top 45%')
-      wp('#order', { x: 0.28, y: 0.3, scale: 0.3, wTorus: 1, wCloud: 0 })
-      const arriveM = ScrollTrigger.create({
-        trigger: '#order', start: 'top 55%', once: true,
-        onEnter: () => window.dispatchEvent(new CustomEvent('vial-arrived')),
+      gsap.to(vialStore, { intro: 1, duration: 1.6, ease: 'power2.out', delay: 0.2 })
+      gsap.to(vialStore, {
+        progress: 1, ease: 'none',
+        scrollTrigger: { trigger: 'main', start: 'top top', end: 'bottom bottom', scrub: 0.6, invalidateOnRefresh: true },
       })
-      wp('#final-cta', { x: 0, y: -0.16, scale: 0.52, wCloud: 1, wTorus: 0, dropY: 0 }, 'top bottom', 'top 45%')
-      wp('#site-footer', { y: -0.95 }, 'top bottom', 'top 60%')
-      return () => arriveM.kill()
+      wp('#catalog', { camZ: 19, camX: -1.9, dim: 0.28 })
+      wp('#process', { camZ: 12.5, camX: -0.4, dim: 0.8 })
+      wp('#verify', { camZ: 18, camX: -1.7, dim: 0.32, scanner: 1, powderCalm: 0.6 }, 'top 80%', 'top 25%')
+      wp('#reviews', { camZ: 19, camX: -1.9, dim: 0.28, scanner: 0, powderCalm: 0.55 }, 'top 95%', 'top 45%')
+      wp('#order', { camZ: 19, camX: -1.8, dim: 0.28, columnReveal: 1, powderCalm: 0.85 })
+      wp('#final-cta', { camZ: 15.5, camX: -0.4, dim: 0.65, columnReveal: 0.4, powderCalm: 1 }, 'top bottom', 'top 45%')
     })
 
     const staticPose = (mobile) => () =>
       gsap.set(vialStore, {
-        x: mobile ? 0.18 : 0.26,
-        y: mobile ? -0.42 : 0,
-        scale: mobile ? 0.5 : 0.92,
-        intro: 1,
-        wCloud: 0, wMound: 0, wHelix: 1, wTorus: 0,
-        rungReveal: 1,
-        spotlight: 0,
-        pose: 0,
-        dropY: 0,
-        camZ: 7.5, camY: 0.15, camOrbit: 0, camFocus: 0, lookY: 0,
+        progress: 0.42, intro: 1,
+        camZ: mobile ? 15 : 9.4, camX: mobile ? -0.5 : 0.5, camRoll: 0, lookLead: 0.02,
+        scanner: 0, columnReveal: 0, powderCalm: 0.3, dim: 0.85,
       })
     mm.add(MQ_REDUCED_DESKTOP, staticPose(false))
     mm.add(MQ_REDUCED_MOBILE, staticPose(true))

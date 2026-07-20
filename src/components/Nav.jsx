@@ -65,9 +65,9 @@ export default function Nav() {
   return (
     <header className={`nav ${glassy ? 'nav-glass' : ''} ${hidden ? 'nav-hidden' : ''}`}>
       <div className="nav-inner">
-        <a className="nav-logo" href="#hero" aria-label="STRATA — home" onClick={(e) => go(e, '#hero')}>
+        <a className="nav-logo" href="#hero" aria-label="NOCTA — home" onClick={(e) => go(e, '#hero')}>
           <VialGlyph />
-          <span className="nav-wordmark">STRATA<span className="nav-word2">PEPTIDE WORKS</span></span>
+          <span className="nav-wordmark">NOCTA<span className="nav-word2">read as light</span></span>
         </a>
         <nav className="nav-links" aria-label="Primary">
           {LINKS.map((l) => (

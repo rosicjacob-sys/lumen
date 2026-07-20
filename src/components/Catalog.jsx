@@ -20,11 +20,11 @@ export default function Catalog() {
   // Keep the vial's powder AND the page accent synced to the active peptide —
   // the whole monochrome UI takes the compound's color.
   useEffect(() => {
-    setVialColor(active.hue, active.hueDeep, reducedMotion())
+    setVialColor(active.emit, active.emit, reducedMotion())
     const root = document.documentElement.style
     // powder color drives the 3D; the UI accent stays contrast-safe
-    root.setProperty('--accent', active.ui || active.hue)
-    root.setProperty('--accent-deep', active.uiDeep || active.hueDeep)
+    root.setProperty('--accent', active.emit)
+    root.setProperty('--accent-deep', active.emit)
   }, [active])
 
   const scope = useReveal((el) => {
@@ -86,7 +86,7 @@ export default function Catalog() {
                 tabIndex={on ? 0 : -1}
                 onClick={() => select(p.id)}
                 onMouseEnter={() => !reducedMotion() && select(p.id)}
-                style={{ '--pep': p.hue, '--pep-deep': p.uiDeep || p.hueDeep }}
+                style={{ '--pep': p.emit, '--pep-deep': p.emit }}
               >
                 <span className="pep-swatch" aria-hidden="true" />
                 <div className="pep-id">

@@ -10,12 +10,11 @@ import SplitHeading from './SplitHeading'
 gsap.registerPlugin(ScrollTrigger)
 
 /**
- * The screenshot moment. Desktop: pins ~200vh while the powder mound
- * assembles into the rotating double helix (wHelix) and the base-pair rungs
- * click in one by one (rungReveal), steps highlighting in sequence.
- * Mobile/reduced: no pin — a short scrub assembles the helix instead.
- * Hardened: within the pin gap, weights are written ONLY here; onLeaveBack
- * hands the mound back, onLeave hands the built helix to #verify's waypoint.
+ * The synthesis set-piece. Desktop: pins ~200vh — the global progress scrub
+ * keeps advancing during the pin, so the wavefront slows here and the base-pair
+ * rungs assemble rung-by-rung while the camera holds its close synthesis
+ * framing; the four steps highlight in sequence. The pin only holds the section
+ * and highlights steps — the strand writing is owned by the global scrub.
  */
 export default function Process() {
   const sectionRef = useRef(null)
@@ -25,9 +24,7 @@ export default function Process() {
     const mm = gsap.matchMedia()
     mm.add(MQ_DESKTOP, () => {
       const rows = gsap.utils.toArray('.step-row', sectionRef.current)
-      const reset = () => {
-        rows.forEach((r) => r.classList.remove('is-active'))
-      }
+      const reset = () => rows.forEach((r) => r.classList.remove('is-active'))
       const st = ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top top',
@@ -37,40 +34,13 @@ export default function Process() {
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const p = self.progress
-          let active = -1
-          // 0–0.3: the powder mound assembles into the double helix;
-          // 0.18–1: base-pair rungs click in one by one (cascade),
-          // steps highlight across the hold.
-          const build = Math.min(p / 0.3, 1)
-          vialStore.wHelix = build
-          vialStore.wMound = 1 - build
-          vialStore.wCloud = 0
-          vialStore.wTorus = 0
-          vialStore.rungReveal = Math.min(Math.max((p - 0.18) / 0.72, 0), 1)
-          // the camera slowly circles the assembling helix across the pin
-          vialStore.camOrbit = -0.3 + p * 0.65
-          vialStore.camFocus = 0.5
-          vialStore.lookY = -0.15 + p * 0.45
-          if (p >= 0.25) active = Math.min(3, Math.floor((p - 0.25) / (0.75 / 4)))
+          const active = p < 0.12 ? -1 : Math.min(3, Math.floor((p - 0.12) / (0.88 / 4)))
           rows.forEach((r, i) => r.classList.toggle('is-active', i === active))
         },
-        // No weight reset here: leaving downward hands a fully-built helix to
-        // the #verify waypoint (which owns it next); leaving upward hands the
-        // mound back to the #process waypoint. Only the DOM state resets.
-        onLeave: () => reset(),
-        onLeaveBack: () => {
-          reset()
-          vialStore.wHelix = 0
-          vialStore.wMound = 1
-          vialStore.rungReveal = 0
-          vialStore.camOrbit = -0.3
-          vialStore.lookY = 0
-        },
+        onLeave: reset,
+        onLeaveBack: reset,
       })
-      return () => {
-        st.kill()
-        reset()
-      }
+      return () => { st.kill(); reset() }
     })
     return () => mm.revert()
   }, [])
@@ -91,9 +61,9 @@ export default function Process() {
       <div className="proc-pin" ref={pinRef}>
         <div className="container proc-grid" ref={scope}>
           <div className="proc-rail">
-            <p className="eyebrow">LOT BY LOT — HOW A VIAL EARNS ITS LABEL</p>
+            <p className="eyebrow">SYNTHESIS — WATCHED, NOT CLAIMED</p>
             <SplitHeading as="h2" className="section-title">
-              Powder in. <em>Sequence</em> out.
+              The strand <em>writes</em> itself.
             </SplitHeading>
             <ol className="step-list">
               {STEPS.map((s, i) => (
@@ -108,7 +78,7 @@ export default function Process() {
             </ol>
             {!reducedMotion() && (
               <p className="proc-hint mono-label" aria-hidden="true">
-                KEEP SCROLLING — THE HELIX ASSEMBLES
+                KEEP SCROLLING — THE SEQUENCE FILLS IN
               </p>
             )}
           </div>

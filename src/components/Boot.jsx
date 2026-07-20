@@ -54,14 +54,14 @@ export default function Boot() {
   return (
     <div className="boot" ref={ref} aria-hidden="true">
       <div className="boot-inner">
-        <p className="boot-mark">STRATA</p>
+        <p className="boot-mark">NOCTA</p>
         <div className="boot-lines">
           {[0, 1, 2, 3, 4].map((i) => (
             <span className="boot-line" key={i} />
           ))}
         </div>
         <p className="boot-read mono-label">
-          CALIBRATING OPTICS · LOT 2438 · <span ref={pctRef}>000</span>
+          PRIMING FLUORESCENCE · LOT 2438 · <span ref={pctRef}>000</span>
         </p>
       </div>
     </div>

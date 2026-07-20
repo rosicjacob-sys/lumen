@@ -7,8 +7,11 @@ export const PEPTIDES = [
     dose: 100,
     unit: 'MG',
     tag: 'COPPER TRIPEPTIDE-1',
-    hue: '#1F6FEB', // blue powder
+    hue: '#1F6FEB', // legacy powder tint (light theme)
     hueDeep: '#0B3D91',
+    emit: '#34D9FF', // NOCTA emission — Cerenkov cyan
+    ui: '#34D9FF',
+    codon: 'GGA·CAC·AAG',
     powder: 'blue',
     seq: 'Gly-His-Lys · Cu²⁺',
     purity: 99.2,
@@ -23,8 +26,11 @@ export const PEPTIDES = [
     dose: 50,
     unit: 'MG',
     tag: 'NNMT INHIBITOR',
-    hue: '#F5871F', // orange powder
+    hue: '#F5871F', // legacy powder tint
     hueDeep: '#B8560A',
+    emit: '#FFB020', // NOCTA emission — firefly amber
+    ui: '#FFB020',
+    codon: 'ATG·CAA·TAC',
     powder: 'orange',
     seq: 'C₁₀H₁₂N₂ · small molecule',
     purity: 98.7,
@@ -39,10 +45,11 @@ export const PEPTIDES = [
     dose: 20,
     unit: 'MG',
     tag: 'GGG TRI-AGONIST',
-    hue: '#F2F4F7', // white powder (rendered as bright neutral)
+    hue: '#F2F4F7', // legacy powder tint
     hueDeep: '#B9C0C9',
-    ui: '#5E6B7E', // UI accent must stay readable on the light canvas
-    uiDeep: '#39434f',
+    emit: '#EAF2FF', // NOCTA emission — phosphor white (glows on black)
+    ui: '#EAF2FF',
+    codon: 'TAC·AGC·GGA',
     powder: 'white',
     seq: '39-aa peptide · GIP/GLP-1/GCG',
     purity: 99.5,

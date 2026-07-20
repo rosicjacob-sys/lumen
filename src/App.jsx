@@ -7,7 +7,6 @@ import { MQ_MOTION_OK } from './lib/env'
 import AtelierStage from './three/AtelierStage'
 import AnnouncementBar from './components/AnnouncementBar'
 import Boot from './components/Boot'
-import StrataLines from './components/StrataLines'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import Marquee from './components/Marquee'
@@ -41,7 +40,6 @@ export default function App() {
       <Nav />
       <main>
         <Hero />
-        <StrataLines />
         <Marquee />
         <Catalog />
         <Process />
@@ -50,7 +48,6 @@ export default function App() {
         <Order />
         <ColdChain />
         <Faq />
-        <StrataLines />
         <FinalCta />
       </main>
       <Footer />

@@ -1,21 +1,28 @@
 /* ============================================================
-   ATELIER PEPTIDE — global stylesheet
-   Monochrome lab; the only color on the page is the compound.
-   --accent is LIVE: it follows the selected peptide's powder.
+   NOCTA — global stylesheet
+   Abyssal void; the compound is read as light. --accent is LIVE:
+   the emission color of the selected peptide.
    ============================================================ */
 
 :root {
-  --canvas: #f5f6f7;
-  --panel: #eceef0;
-  --ink: #14171a;
-  --ink-soft: #5c6470;
-  --line: rgba(20, 23, 26, 0.09);
-  --accent: #1f6feb; /* set at runtime to the active peptide's hue */
-  --accent-deep: #0b3d91;
+  --canvas: #05070d; /* abyss */
+  --panel: #0a0e1a; /* ink — slightly-lifted panels */
+  --scrim: #02030a; /* vignette / cabins behind text */
+  --ink: #c9d4e6; /* phosphor off-white = primary text */
+  --ink-soft: #6b7a93; /* dim slate = labels/mono */
+  --line: rgba(201, 212, 230, 0.12);
+  --accent: #34d9ff; /* set at runtime to the active peptide's emission */
+  --accent-deep: #34d9ff;
 
-  --font-display: 'Archivo Variable', 'Archivo', Impact, sans-serif;
-  --font-body: 'Instrument Sans Variable', 'Instrument Sans', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
+  /* base-call palette — used ONLY in the mono ATGC readout */
+  --base-a: #35e0a1;
+  --base-t: #ff5d5d;
+  --base-c: #3b82f6;
+  --base-g: #f5a524;
+
+  --font-display: 'Fraunces Variable', 'Fraunces', Georgia, serif;
+  --font-body: 'Geist Variable', 'Geist', system-ui, sans-serif;
+  --font-mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, monospace;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-snap: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -42,12 +49,13 @@ html {
 body {
   font-family: var(--font-body);
   font-size: 17px;
-  line-height: 1.6;
+  line-height: 1.62;
   color: var(--ink);
   background:
-    radial-gradient(1200px 600px at 78% -5%, rgba(255, 255, 255, 0.9), transparent 60%),
-    linear-gradient(180deg, #f7f8f9 0%, var(--canvas) 30%);
-  background-color: var(--canvas);
+    radial-gradient(1400px 900px at 72% 12%, #0c1220 0%, transparent 55%),
+    radial-gradient(1200px 1400px at 50% 120%, #02030a 0%, transparent 60%),
+    var(--canvas);
+  background-attachment: fixed;
 }
 
 img,
@@ -157,7 +165,7 @@ button {
 
 .section-title {
   font-family: var(--font-display);
-  font-variation-settings: 'wdth' 122;
+  font-variation-settings: 'opsz' 144;
   font-weight: 680;
   text-transform: uppercase;
   font-size: clamp(1.9rem, 4.3vw, 3.3rem);
@@ -211,21 +219,23 @@ button {
   justify-content: center;
   gap: 0.6rem;
   min-height: 52px;
-  background: var(--ink);
-  color: #fff;
-  border-radius: 12px;
+  background: var(--accent);
+  color: #05070d;
+  border-radius: 11px;
   padding: 0.95rem 1.8rem;
-  font-weight: 650;
+  font-weight: 600;
   font-size: 1rem;
   letter-spacing: 0.01em;
-  box-shadow: 0 16px 34px -18px rgba(20, 23, 26, 0.55);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent),
+    0 14px 40px -12px var(--accent);
   transition: background 0.15s var(--ease-out), transform 0.15s var(--ease-out),
     box-shadow 0.15s var(--ease-out);
 }
 .btn:hover {
-  background: #000;
+  filter: brightness(1.12);
   transform: translateY(-2px);
-  box-shadow: 0 22px 40px -18px rgba(20, 23, 26, 0.6);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 55%, transparent),
+    0 20px 54px -12px var(--accent);
 }
 .btn:active {
   transform: translateY(0) scale(0.99);
@@ -306,7 +316,7 @@ button {
   transform: translateY(-110%);
 }
 .nav-glass {
-  background: rgba(245, 246, 247, 0.82);
+  background: rgba(6, 9, 16, 0.72);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
   box-shadow: 0 1px 0 var(--line);
@@ -328,7 +338,7 @@ button {
 }
 .nav-wordmark {
   font-family: var(--font-display);
-  font-variation-settings: 'wdth' 125;
+  font-variation-settings: 'opsz' 144;
   font-weight: 740;
   font-size: 1.02rem;
   letter-spacing: 0.04em;
@@ -479,7 +489,7 @@ button {
 }
 .nav-menu a {
   font-family: var(--font-display);
-  font-variation-settings: 'wdth' 118;
+  font-variation-settings: 'opsz' 144;
   font-weight: 640;
   text-transform: uppercase;
   font-size: 1.45rem;
@@ -556,8 +566,7 @@ button {
   width: 58vw;
   height: 90vh;
   background:
-    radial-gradient(ellipse at 60% 40%, rgba(255, 255, 255, 0.95), transparent 62%),
-    radial-gradient(ellipse at 60% 45%, rgba(20, 23, 26, 0.05), transparent 70%);
+    radial-gradient(ellipse at 72% 45%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 60%);
   pointer-events: none;
 }
 .hero-grid {
@@ -569,7 +578,7 @@ button {
 }
 .hero-title {
   font-family: var(--font-display);
-  font-variation-settings: 'wdth' 124;
+  font-variation-settings: 'opsz' 144;
   font-weight: 720;
   text-transform: uppercase;
   font-size: clamp(2.6rem, 6.6vw, 5.6rem);
@@ -630,7 +639,7 @@ button {
 }
 .mk-word {
   font-family: var(--font-display);
-  font-variation-settings: 'wdth' 123;
+  font-variation-settings: 'opsz' 144;
   font-weight: 700;
   text-transform: uppercase;
   font-size: clamp(1.2rem, 2.7vw, 2.1rem);
@@ -682,7 +691,7 @@ button {
 }
 .pep-id h3 {
   font-family: var(--font-display);
-  font-variation-settings: 'wdth' 118;
+  font-variation-settings: 'opsz' 144;
   font-weight: 680;
   text-transform: uppercase;
   font-size: 1.35rem;
@@ -771,7 +780,7 @@ button {
   gap: 1rem;
 }
 .grid-cell {
-  background: #fff;
+  background: rgba(201, 212, 230, 0.035);
   border: 1px solid var(--line);
   border-radius: 14px;
   padding: 1.2rem 1.25rem 1.05rem;
@@ -786,7 +795,7 @@ button {
 }
 .grid-cell h4 {
   font-family: var(--font-display);
-  font-variation-settings: 'wdth' 116;
+  font-variation-settings: 'opsz' 144;
   font-weight: 660;
   text-transform: uppercase;
   font-size: 1.05rem;
@@ -862,7 +871,7 @@ button {
 }
 .step-info h3 {
   font-family: var(--font-display);
-  font-variation-settings: 'wdth' 118;
+  font-variation-settings: 'opsz' 144;
   font-weight: 680;
   text-transform: uppercase;
   font-size: 1.2rem;
@@ -882,14 +891,13 @@ button {
 /* ---------- verify (dark spotlight scene) ---------- */
 .verify {
   background:
-    radial-gradient(900px 480px at 72% 38%, rgba(90, 110, 140, 0.16), transparent 60%),
-    #101215;
-  color: #eef1f5;
+    radial-gradient(700px 520px at 20% 45%, rgba(10, 14, 26, 0.85), transparent 70%);
+  color: var(--ink);
   padding-block: clamp(5rem, 11vw, 9.5rem);
 }
 .verify-quote {
   font-family: var(--font-display);
-  font-variation-settings: 'wdth' 120;
+  font-variation-settings: 'opsz' 144;
   font-weight: 640;
   text-transform: uppercase;
   font-size: clamp(1.9rem, 4.3vw, 3.6rem);
@@ -953,7 +961,7 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 1.1rem;
-  background: #fff;
+  background: rgba(201, 212, 230, 0.035);
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 0.85rem 1.15rem;
@@ -1011,7 +1019,7 @@ button {
   gap: 0.3rem;
   align-content: start;
   text-align: left;
-  background: #fff;
+  background: rgba(201, 212, 230, 0.035);
   border: 1px solid var(--line);
   border-radius: 16px;
   padding: 1.45rem 1.3rem 1.35rem;
@@ -1044,7 +1052,7 @@ button {
 }
 .order-name {
   font-family: var(--font-display);
-  font-variation-settings: 'wdth' 118;
+  font-variation-settings: 'opsz' 144;
   font-weight: 680;
   text-transform: uppercase;
   font-size: 1.3rem;
@@ -1179,7 +1187,7 @@ button {
 }
 .final-title {
   font-family: var(--font-display);
-  font-variation-settings: 'wdth' 124;
+  font-variation-settings: 'opsz' 144;
   font-weight: 720;
   text-transform: uppercase;
   font-size: clamp(2.4rem, 6vw, 5rem);
@@ -1213,7 +1221,7 @@ button {
   align-items: center;
   gap: 0.5rem;
   font-family: var(--font-display);
-  font-variation-settings: 'wdth' 122;
+  font-variation-settings: 'opsz' 144;
   font-weight: 720;
   font-size: 1.05rem;
   letter-spacing: 0.04em;
@@ -1286,7 +1294,7 @@ button {
   display: none;
   flex-direction: column;
   gap: 0.35rem;
-  background: rgba(245, 246, 247, 0.95);
+  background: rgba(6, 9, 16, 0.9);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border-top: 1px solid var(--line);
@@ -1566,7 +1574,7 @@ html.force-rm .proc-hint {
 }
 .boot-mark {
   font-family: var(--font-display);
-  font-variation-settings: 'wdth' 125;
+  font-variation-settings: 'opsz' 144;
   font-weight: 740;
   font-size: clamp(2rem, 5vw, 3.2rem);
   letter-spacing: 0.08em;
@@ -1640,7 +1648,7 @@ html.force-rm .proc-hint {
 
 /* velocity-reactive hero title gets its base width from JS; keep CSS base */
 .hero-title {
-  font-variation-settings: 'wdth' 124;
+  font-variation-settings: 'opsz' 144;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1649,3 +1657,108 @@ html.force-rm .proc-hint {
 }
 html.force-rm .mk-seq { transform: none !important; }
 html.force-rm .boot { display: none; }
+
+
+/* ============================================================
+   NOCTA overrides — editorial serif, floating dark cabins, glow
+   ============================================================ */
+
+/* strand renders BEHIND content (readability first); glows through the
+   transparent right side of every section */
+main { position: relative; z-index: 2; }
+.vial-stage { z-index: 1; }
+.vial-fallback { z-index: 0; }
+.nav { z-index: 100; }
+.sticky-cart { z-index: 120; }
+.boot { z-index: 400; }
+
+/* sections float over the abyss — no opaque bands hiding the strand */
+.catalog, .process, .proc-pin, .verify, .batches, .order, .cold,
+.faq, .final-cta, .footer, .marquee, .announce {
+  background: transparent !important;
+}
+
+/* display type: light, high-contrast Fraunces catching the bloom */
+.section-title, .hero-title, .final-title, .verify-quote,
+.nav-menu a {
+  font-weight: 360 !important;
+  text-transform: none !important;
+  letter-spacing: -0.015em;
+}
+.hero-title { font-weight: 340 !important; }
+.section-title em, .hero-title em, .verify-quote em, .final-title em, .cold-text em {
+  font-weight: 400 !important;
+  text-shadow: 0 0 34px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+/* nav + footer wordmark stays a tight small-caps serif */
+.nav-wordmark, .footer-logo { text-transform: none; letter-spacing: 0.01em; }
+.nav-word2 { color: var(--ink-soft); }
+
+/* glassy panels get a faint inner glow + hairline instead of solid fills */
+.grid-cell, .order-card, .batch-chip, .bundle-card {
+  border: 1px solid var(--line);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+.order-card.is-selected {
+  border-color: color-mix(in srgb, var(--pep) 60%, transparent);
+  box-shadow: 0 0 0 1px var(--pep), 0 20px 60px -20px var(--pep);
+}
+.pep-row.is-active {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--pep) 10%, transparent), transparent 70%) !important;
+}
+
+/* eyebrow marker glows */
+.eyebrow::before { box-shadow: 0 0 10px var(--accent); }
+
+/* mono data reads as a phosphor readout */
+.mono-label, .eyebrow { color: var(--ink-soft); }
+
+/* buttons: shine sweep tuned for dark */
+.btn::after { background: linear-gradient(105deg, transparent, rgba(5,7,13,0.5), transparent); }
+
+/* legibility cabin behind copy-heavy left columns */
+.hero-copy, .proc-rail, .verify .container > *, .catalog .container > .section-title,
+.order-right, .faq-inner, .final-inner {
+  position: relative;
+}
+
+/* selection uses accent on dark */
+::selection { background: var(--accent); color: #05070d; }
+
+
+/* NOCTA mobile: strand recedes to a backdrop; scrim keeps copy readable */
+@media (max-width: 799.98px) {
+  .vial-stage { opacity: 0.55; }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--canvas) 30%, transparent 85%);
+    pointer-events: none;
+    z-index: -1;
+  }
+  .hero-copy { position: relative; z-index: 1; }
+}
+
+/* NOCTA content shield — mid/bottom content blocks are frosted cabins floating
+   over the abyss: near-opaque glass + backdrop blur, so the strand can pass
+   behind them but can never bury data. Set-pieces (hero, process) stay bare. */
+.pep-list,
+.grid-cell,
+.verify-body,
+.order-cards,
+.order-side,
+.faq-list,
+.batch-chip,
+.cold-text {
+  position: relative;
+  background: rgba(7, 10, 18, 0.86);
+  backdrop-filter: blur(9px) saturate(1.15);
+  -webkit-backdrop-filter: blur(9px) saturate(1.15);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+.pep-list { padding: 0.4rem 1.1rem; border-top: 1px solid var(--line); }
+.pep-row:last-child { border-bottom: none; }
+.batch-chip { border-radius: 12px; }

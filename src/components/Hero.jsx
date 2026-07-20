@@ -40,15 +40,15 @@ export default function Hero() {
       <div className="container hero-grid">
         <div className="hero-copy">
           <p className="eyebrow" data-reveal>
-            RESEARCH PEPTIDES — HPLC-VERIFIED, BATCH-TRACEABLE
+            RESEARCH PEPTIDES — READ AS LIGHT
           </p>
           <div ref={titleRef}>
             <SplitHeading as="h1" className="hero-title">
-              Proof, layer by <em>layer</em>.
+              The compound, read as <em>light</em>.
             </SplitHeading>
           </div>
           <p className="hero-sub" data-reveal>
-            Every lot is built in strata: assayed, lyophilized, argon-sealed, documented, and
+            Research peptides, sequenced in the dark. Each lot is lyophilized, argon-sealed, and
             cold-shipped — with a public certificate of analysis keyed to the batch on the cap.
           </p>
           <div className="hero-ctas" data-reveal>

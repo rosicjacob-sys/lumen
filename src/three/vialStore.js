@@ -1,45 +1,33 @@
 import * as THREE from 'three'
 
-// STRATA v2 store. GSAP + the cart write it; the R3F scene reads it every
-// frame. x/y are viewport-fraction offsets from center; scale 1 = hero size.
-// Shape is a weight vector (normalized in the shader feed). v2 adds a scroll-
-// driven CAMERA rig: dolly (camZ), height (camY), orbit (camOrbit, radians
-// around the protagonist) and look bias (lookY).
+// NOCTA store. GSAP ScrollTrigger scrubs `progress` (0..1 = descent down the
+// strand + how much of the sequence is "written"); the scene reads it every
+// frame to place the camera and drive the emissive wavefront. One accent is
+// lit at a time — it lerps toward the selected peptide's EMISSION color.
 export const vialStore = {
-  x: 0.26,
-  y: 0.0,
-  scale: 1,
-  intro: 0,
-  // shape weights
-  wCloud: 1,
-  wMound: 0,
-  wHelix: 0,
-  wTorus: 0,
-  rungReveal: 0,
-  spotlight: 0,
-  pose: 0,
-  dropY: 0,
-  // camera rig
-  camZ: 7.5,
-  camY: 0.15,
-  camOrbit: 0,
-  camFocus: 0, // 0 = orbit the page axis, 1 = orbit the protagonist
-  lookY: 0,
+  progress: 0, // 0..1 wavefront + camera descent
+  intro: 0, // 0..1 boot-up of the strand
+  // camera rig (world units; strand is a tall vertical double helix at x≈2.4)
+  camZ: 8.2, // dolly distance
+  camX: 0.4, // lateral — pushes strand toward screen-right for content cabins
+  camRoll: 0, // radians, tiny
+  lookLead: 0.02, // how far ahead the camera looks down the strand
+  axialView: 0, // 0 = side view, 1 = looking down the helix axis (hero)
+  scanner: 0, // 0..1 verify scanner-plane sweep
+  columnReveal: 0, // order: pull back to reveal the whole column
+  powderCalm: 0, // 0 busy -> 1 calmed
+  dim: 1, // 1 full presence (set-pieces) -> ~0.4 recessed (content sections)
+  // emission color (lerped toward target on selection)
+  accent: new THREE.Color('#34D9FF'),
+  target: new THREE.Color('#34D9FF'),
   // internals
-  _worldScale: 1, // written by the scene, read by the point shader
-  // powder color — lerped toward the active peptide
-  color: new THREE.Color('#1F6FEB'),
-  colorDeep: new THREE.Color('#0B3D91'),
-  targetColor: new THREE.Color('#1F6FEB'),
-  targetDeep: new THREE.Color('#0B3D91'),
+  _worldScale: 1,
 }
 
-export function setVialColor(hex, deepHex, snap = false) {
-  vialStore.targetColor.set(hex)
-  vialStore.targetDeep.set(deepHex)
+export function setVialColor(hex, _deep, snap = false) {
+  vialStore.target.set(hex)
   if (snap) {
-    vialStore.color.set(hex)
-    vialStore.colorDeep.set(deepHex)
+    vialStore.accent.set(hex)
     window.dispatchEvent(new CustomEvent('vial-color-snap'))
   }
 }

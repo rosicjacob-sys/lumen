@@ -15,10 +15,10 @@ export default function Footer() {
         <div className="footer-brand">
           <p className="footer-logo">
             <VialGlyph />
-            <span>STRATA</span>
+            <span>NOCTA</span>
           </p>
           <p className="mono-label">RESEARCH-GRADE · BATCH-TRACEABLE</p>
-          <p className="footer-tag">Lyophilized peptides with a public paper trail.</p>
+          <p className="footer-tag">Research peptides, sequenced in the dark.</p>
         </div>
         <nav className="footer-col" aria-label="Shop">
           <p className="mono-label footer-head">CATALOG</p>
@@ -35,7 +35,7 @@ export default function Footer() {
         </nav>
         <div className="footer-col">
           <p className="mono-label footer-head">CONTACT</p>
-          <a href="mailto:lab@strata.works">lab@strata.works</a>
+          <a href="mailto:lab@nocta.bio">lab@nocta.bio</a>
           <p className="footer-pay" aria-label="Accepted payments: Visa, Mastercard, American Express, wire transfer">
             {PAYMENTS.map((p) => (
               <span className="pay-chip mono-label" key={p}>
@@ -51,7 +51,7 @@ export default function Footer() {
           Sales restricted to purchasers 21+ acting on behalf of a laboratory or research
           institution. Handle all compounds with appropriate laboratory controls.
         </p>
-        <p className="mono-label footer-copy">© 2026 STRATA PEPTIDE WORKS LLC · ALL RIGHTS RESERVED</p>
+        <p className="mono-label footer-copy">© 2026 NOCTA BIOWORKS LLC · ALL RIGHTS RESERVED</p>
       </div>
     </footer>
   )
