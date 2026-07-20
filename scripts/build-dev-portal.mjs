@@ -76,11 +76,11 @@ const row = (href, icon, title, sub, cta = 'Open →', extra = '') =>
   `<a class="row" href="${href}"${extra}><span class="ic">${icon}</span><div class="m"><b>${title}</b><span>${sub}</span></div><span class="go">${cta}</span></a>`
 
 const downloads = [
-  row('/dev/source.zip', '📦', 'Source code (.zip)', `Rebuilt on every deploy — always matches this page · ${zipKB} KB`, 'Download →'),
-  has('HANDOFF.pdf') ? row('/dev/HANDOFF.pdf', '📄', "This theme's handoff (PDF)", 'Stack, entry points, signature animation file') : '',
-  has('DEVELOPER-GUIDE.pdf') ? row('/dev/DEVELOPER-GUIDE.pdf', '📘', 'Full developer guide (PDF)', 'Shopify integration paths + what to replace') : '',
-  has('DEVELOPER-GUIDE.html') ? row('/dev/DEVELOPER-GUIDE.html', '🌐', 'Full developer guide (web)', 'Read the master guide in the browser', 'Open →', ' target="_blank"') : '',
-  row('/', '▶', 'Open the live site (full window)', 'The running theme — analyse it directly'),
+  row('source.zip', '📦', 'Source code (.zip)', `Rebuilt on every deploy — always matches this page · ${zipKB} KB`, 'Download →'),
+  has('HANDOFF.pdf') ? row('HANDOFF.pdf', '📄', "This theme's handoff (PDF)", 'Stack, entry points, signature animation file') : '',
+  has('DEVELOPER-GUIDE.pdf') ? row('DEVELOPER-GUIDE.pdf', '📘', 'Full developer guide (PDF)', 'Shopify integration paths + what to replace') : '',
+  has('DEVELOPER-GUIDE.html') ? row('DEVELOPER-GUIDE.html', '🌐', 'Full developer guide (web)', 'Read the master guide in the browser', 'Open →', ' target="_blank"') : '',
+  row('../', '▶', 'Open the live site (full window)', 'The running theme — analyse it directly'),
 ].filter(Boolean).join('\n      ')
 
 const portal = `<!doctype html><html lang="en"><head><meta charset="utf-8"/>
@@ -119,8 +119,8 @@ const portal = `<!doctype html><html lang="en"><head><meta charset="utf-8"/>
   </div>
 </header>
 <main>
-  <div class="pane on" data-p="guide"><iframe src="/dev/HANDOFF.html" title="Instructions"></iframe></div>
-  <div class="pane live" data-p="live"><iframe src="/?embed=1" title="Live site"></iframe></div>
+  <div class="pane on" data-p="guide"><iframe src="HANDOFF.html" title="Instructions"></iframe></div>
+  <div class="pane live" data-p="live"><iframe src="../?embed=1" title="Live site"></iframe></div>
   <div class="pane" data-p="dl"><div class="dl">
       <h2>Downloads</h2>
       ${downloads}
@@ -136,7 +136,7 @@ const portal = `<!doctype html><html lang="en"><head><meta charset="utf-8"/>
 writeFileSync(join(DEV, 'index.html'), portal)
 
 // ---------- inject the floating Developer button into the live page ----------
-const BTN = `<a href="/dev/" id="__devbtn" style="position:fixed;right:16px;bottom:16px;z-index:2147483647;background:#2e9be6;color:#05080c;font:600 13px/1 ui-sans-serif,-apple-system,system-ui,sans-serif;padding:11px 15px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.45);text-decoration:none">📖 Developer</a>
+const BTN = `<a href="dev/" id="__devbtn" style="position:fixed;right:16px;bottom:16px;z-index:2147483647;background:#2e9be6;color:#05080c;font:600 13px/1 ui-sans-serif,-apple-system,system-ui,sans-serif;padding:11px 15px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.45);text-decoration:none">📖 Developer</a>
 <script>if(new URLSearchParams(location.search).get('embed')==='1'){var b=document.getElementById('__devbtn');if(b)b.remove();}</script>`
 const idx = join(DIST, 'index.html')
 let html = readFileSync(idx, 'utf8')
