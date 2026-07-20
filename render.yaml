@@ -1,0 +1,16 @@
+services:
+  - type: web
+    runtime: static
+    name: nocta-dev
+    plan: free
+    buildCommand: npm ci --include=dev && npm run build && npm run devportal
+    staticPublishPath: ./dist
+    pullRequestPreviewsEnabled: false
+    headers:
+      - path: /*
+        name: X-Robots-Tag
+        value: noindex
+    routes:
+      - type: rewrite
+        source: /dev
+        destination: /dev/index.html
