@@ -1,0 +1,54 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="robots" content="noindex"/>
+<title>🌌 NOCTA (v3) — developer portal</title>
+<style>
+ *{box-sizing:border-box} html,body{height:100%} body{margin:0;background:#070a0f;color:#e8f0f6;
+   font-family:ui-sans-serif,-apple-system,"Segoe UI",Inter,system-ui,sans-serif;display:flex;flex-direction:column;height:100vh}
+ header{display:flex;align-items:center;gap:14px;padding:12px 18px;border-bottom:1px solid #1c2a38;flex:0 0 auto;flex-wrap:wrap}
+ .em{font-size:22px} .ttl{font-weight:700} .sub{color:#7c93a6;font-size:12px}
+ .tabs{margin-left:auto;display:flex;gap:8px}
+ .tab{padding:9px 16px;border:1px solid #1c2a38;border-radius:9px;background:#0e141c;color:#c9d4e6;font-size:13px;font-weight:600;cursor:pointer}
+ .tab.on{background:#2e9be6;color:#05080c;border-color:#2e9be6}
+ .tab.live{color:#34d98a;border-color:#1c3a2a} .tab.live.on{background:#34d98a;color:#05140c}
+ main{flex:1;position:relative;overflow:hidden}
+ .pane{position:absolute;inset:0;display:none} .pane.on{display:block}
+ iframe{width:100%;height:100%;border:0;background:#fff}
+ .live iframe{background:#070a0f}
+ .dl{padding:40px 24px;max-width:720px;margin:0 auto;overflow:auto;height:100%}
+ .dl h2{font-size:15px;color:#7c93a6;text-transform:uppercase;letter-spacing:.08em;margin:0 0 16px}
+ .row{display:flex;align-items:center;gap:14px;padding:16px 18px;background:#0e141c;border:1px solid #1c2a38;border-radius:12px;text-decoration:none;color:#e8f0f6;margin-bottom:12px}
+ .row:hover{border-color:#2e9be6}
+ .ic{font-size:22px} .m{flex:1} .m b{display:block;font-size:14px} .m span{color:#7c93a6;font-size:12px}
+ .go{color:#2e9be6;font-size:13px;font-weight:600}
+ .note{margin-top:22px;color:#4a5a6c;font-size:12px;line-height:1.6}
+ .stamp{font-family:ui-monospace,monospace;font-size:11px;color:#4a5a6c}
+</style></head><body>
+<header>
+  <span class="em">🌌</span>
+  <div><div class="ttl">NOCTA (v3)</div><div class="sub">Developer portal · <span class="stamp">build 8cd7d01 · 2026-07-20 21:04 UTC</span></div></div>
+  <div class="tabs">
+    <button class="tab on" data-p="guide">📖 Guide</button>
+    <button class="tab live" data-p="live">▶ Live site</button>
+    <button class="tab" data-p="dl">⤓ Downloads</button>
+  </div>
+</header>
+<main>
+  <div class="pane on" data-p="guide"><iframe src="HANDOFF.html" title="Instructions"></iframe></div>
+  <div class="pane live" data-p="live"><iframe src="../?embed=1" title="Live site"></iframe></div>
+  <div class="pane" data-p="dl"><div class="dl">
+      <h2>Downloads</h2>
+      <a class="row" href="source.zip"><span class="ic">📦</span><div class="m"><b>Source code (.zip)</b><span>Rebuilt on every deploy — always matches this page · 412 KB</span></div><span class="go">Download →</span></a>
+      <a class="row" href="HANDOFF.pdf"><span class="ic">📄</span><div class="m"><b>This theme's handoff (PDF)</b><span>Stack, entry points, signature animation file</span></div><span class="go">Open →</span></a>
+      <a class="row" href="DEVELOPER-GUIDE.pdf"><span class="ic">📘</span><div class="m"><b>Full developer guide (PDF)</b><span>Shopify integration paths + what to replace</span></div><span class="go">Open →</span></a>
+      <a class="row" href="DEVELOPER-GUIDE.html" target="_blank"><span class="ic">🌐</span><div class="m"><b>Full developer guide (web)</b><span>Read the master guide in the browser</span></div><span class="go">Open →</span></a>
+      <a class="row" href="../"><span class="ic">▶</span><div class="m"><b>Open the live site (full window)</b><span>The running theme — analyse it directly</span></div><span class="go">Open →</span></a>
+      <p class="note">This link is scoped to <b>NOCTA (v3)</b> only. The source zip is regenerated on every deploy from commit <span class="stamp">8cd7d01</span>, so it always matches what you see here. Prices/products in the live site are placeholders — see the guide, section 5.</p>
+  </div></div>
+</main>
+<script>
+ const tabs=[...document.querySelectorAll('.tab')],panes=[...document.querySelectorAll('.pane')];
+ tabs.forEach(t=>t.onclick=()=>{const p=t.dataset.p;
+   tabs.forEach(x=>x.classList.toggle('on',x.dataset.p===p));
+   panes.forEach(x=>x.classList.toggle('on',x.dataset.p===p));});
+</script></body></html>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Developer Guide</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">body{font:15px/1.65 -apple-system,"Segoe UI",Inter,system-ui,sans-serif;color:#1a1f26;max-width:820px;margin:0 auto;padding:28px 22px 60px;background:#fff;}
+h1{font-size:26px;border-bottom:3px solid #2e9be6;padding-bottom:8px;}
+h2{font-size:19px;margin:30px 0 10px;color:#0b3d5c;border-bottom:1px solid #e3e8ee;padding-bottom:5px;}
+h3{font-size:15px;margin:20px 0 6px;}
+code{background:#f2f5f8;padding:1px 5px;border-radius:4px;font-size:13px;font-family:"SFMono-Regular",ui-monospace,monospace;}
+pre{background:#0e141c;color:#e8f0f6;padding:13px 15px;border-radius:8px;overflow-x:auto;font-size:12.5px;}
+pre code{background:none;color:inherit;padding:0;}
+table{border-collapse:collapse;width:100%;font-size:13px;margin:12px 0;}
+th,td{border:1px solid #d7dee6;padding:7px 10px;text-align:left;vertical-align:top;}
+th{background:#f2f5f8;}
+blockquote{border-left:3px solid #f5822b;background:#fff8f2;margin:14px 0;padding:9px 15px;color:#5a3a1a;}
+a{color:#2383e2;}
+hr{border:none;border-top:1px solid #e3e8ee;margin:24px 0;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Developer Guide</h1>
+</header>
+<h1 id="landing-pages--developer-handoff">Landing Pages — Developer
+Handoff</h1>
+<p>Six award-grade animated landing pages, handed off for integration
+into our Shopify build. This guide tells you <strong>what they are, how
+to run them, and — most importantly — how to actually get them onto
+Shopify</strong>, because they are <em>not</em> Shopify themes out of
+the box.</p>
+<blockquote>
+<p><strong>Read &quot;The one thing you must understand&quot; before you quote an
+estimate.</strong></p>
+</blockquote>
+<p>Stack (all six): <strong>Vite + React 18 + Three.js (WebGL) + GSAP +
+Lenis</strong>. Plain JavaScript (JSX), <strong>no TypeScript, no
+Tailwind.</strong> CSS is hand-written per project.</p>
+<hr />
+<h2 id="0-the-one-thing-you-must-understand">0. The one thing you must
+understand</h2>
+<p>These pages are <strong>standalone single-page apps</strong> — Vite +
+React 18 + Three.js + GSAP. They are <strong>not</strong> Shopify Liquid
+themes, and their &quot;add to cart / price / checkout&quot; is a <strong>local
+mock</strong> (an in-memory cart with placeholder data). They were built
+as design + motion references and as fully working front-ends.</p>
+<p>So &quot;put it on Shopify&quot; is <strong>not</strong> a copy-paste. There
+are three real ways to do it (Section 4), from ~a day (iframe embed) to
+a full theme port. Whichever you pick, <strong>the commerce layer must
+be rebuilt against Shopify</strong> (Section 5). Everything <em>visual
+and motion</em> is reusable as-is.</p>
+<p>If you only take one path: <strong>most stores want Path B — port the
+animation into the Shopify theme.</strong></p>
+<hr />
+<h2 id="1-the-six-pages">1. The six pages</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Name</th>
+<th>Folder</th>
+<th>What it is</th>
+<th>Preview port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Pink Pill</strong></td>
+<td><code>projects/01-pink-pill/</code></td>
+<td>Animated supplement/pharma landing; persistent 3D capsule + scroll
+choreography</td>
+<td><code>:8601</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>ALTO</strong></td>
+<td><code>projects/02-alto-penthouse/</code></td>
+<td>Penthouse furniture homepage; WebGL atmosphere, editorial</td>
+<td><code>:8602</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Atelier Peptide</strong></td>
+<td><code>projects/03-atelier-peptide/</code></td>
+<td>Multi-product research-peptides (v1); traveling particle
+&quot;compound&quot;</td>
+<td><code>:8603</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>STRATA</strong></td>
+<td><code>projects/04-strata/</code></td>
+<td>Research-peptides (v2); GPU point-cloud that morphs shape;
+chromatograms</td>
+<td><code>:8604</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>NOCTA</strong></td>
+<td><code>projects/05-nocta/</code></td>
+<td>Research-peptides (v3); glowing self-sequencing DNA ribbon, deep-sea
+dark</td>
+<td><code>:8605</code></td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>APEXION</strong></td>
+<td><code>projects/06-apexion/</code></td>
+<td>Research-peptides (v10); GPGPU million-point field that boils &amp;
+crystallizes into instrument readouts</td>
+<td><code>:8607</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Live previews</strong> run on a private Tailscale network
+behind a passcode. To view them you need (a) to be added to the
+Tailscale net and (b) the passcode — <strong>ask the project owner for
+both.</strong> You do <strong>not</strong> need the previews to build;
+everything is in the source zips.</p>
+<p>Preview host pattern:
+<code>https://andreidutescus-macbook-pro.tailb4cf4e.ts.net:&lt;port&gt;</code></p>
+<hr />
+<h2 id="2-prerequisites">2. Prerequisites</h2>
+<ul>
+<li><strong>Node.js 20 LTS</strong> (18+ works). Safe target is 20
+LTS.</li>
+<li><strong>npm</strong> (bundled with Node). Lockfiles
+(<code>package-lock.json</code>) are included — use <code>npm ci</code>
+for reproducible installs.</li>
+<li>A browser with <strong>WebGL2</strong> (all evergreen browsers;
+Safari 15+). WebGL powers the hero animation, but every page has a
+<strong>non-WebGL fallback</strong> (Section 6).</li>
+</ul>
+<p>No paid dependencies, no private registries. GSAP is the
+<strong>free/standard</strong> build only — <strong>no Club GreenSock
+plugins</strong> — so no special GSAP license is needed beyond the
+standard one.</p>
+<hr />
+<h2 id="3-run-any-page-locally-identical-for-all-six">3. Run any page
+locally (identical for all six)</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> projects/06-apexion        <span class="co"># or any project folder</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> ci                        <span class="co"># exact locked install (first time)</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run dev                   <span class="co"># hot-reload dev server -&gt; prints a localhost URL</span></span></code></pre></div>
+<p>Produce a <strong>deployable static build</strong>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run build                 <span class="co"># static site into ./dist</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run preview               <span class="co"># serve ./dist locally to sanity-check</span></span></code></pre></div>
+<p><code>dist/</code> is a plain static bundle (HTML + hashed
+JS/CSS/font assets). Host it on <strong>any</strong> static host
+(Netlify, Vercel, Cloudflare Pages, S3+CloudFront). This matters for
+Path A.</p>
+<blockquote>
+<p><strong>Cache gotcha:</strong> every build emits new hashed
+filenames. When re-deploying to a static host, serve
+<code>index.html</code> with <code>Cache-Control: no-cache</code>
+(hashed assets can stay immutable). Otherwise a browser holding an old
+<code>index.html</code> 404s on deleted asset hashes and renders
+<strong>blank</strong>. Don&#39;t let this bite you.</p>
+</blockquote>
+<hr />
+<h2 id="4-getting-it-onto-shopify--three-paths">4. Getting it onto
+Shopify — three paths</h2>
+<h3 id="path-a--embed-the-built-page-fastest-051-day">Path A — Embed the
+built page (fastest, ~0.5–1 day)</h3>
+<p><code>npm run build</code>, host <code>dist/</code> on a static host,
+embed it in a Shopify page via an
+<strong><code>&lt;iframe&gt;</code></strong> (custom section/template or
+app-embed block).</p>
+<ul>
+<li><strong>Pros:</strong> keeps 100% of the animation with near-zero
+rework; decoupled from the theme.</li>
+<li><strong>Cons:</strong> it&#39;s an iframe — no shared scroll with the
+store, trickier mobile, weaker SEO for that content, and <strong>the
+cart is separate</strong>: repoint the mock &quot;Add to cart&quot; buttons to
+real Shopify cart deep-links
+(<code>/cart/add?id=&lt;variantId&gt;</code>) or
+<code>postMessage</code> to the parent theme which calls the Cart AJAX
+API.</li>
+<li><strong>Good for:</strong> a hero/campaign/landing page that isn&#39;t
+the primary PDP or collection grid.</li>
+</ul>
+<h3 id="path-b--port-the-animation-into-the-shopify-theme-recommended-13-weekspage">Path
+B — Port the animation into the Shopify theme (recommended, ~1–3
+weeks/page)</h3>
+<p>Keep the <strong>WebGL canvas + GSAP choreography</strong> as theme
+assets, rebuild the page&#39;s DOM as <strong>Liquid sections</strong> fed
+by real Shopify data, use the <strong>native cart +
+checkout</strong>.</p>
+<ol type="1">
+<li>Move the compiled animation bundle (or port the Three.js/GSAP
+modules) into <code>assets/</code>, loaded only on the target
+template.</li>
+<li>Recreate each section (hero, catalog, verify, order, FAQ…) as a
+<strong>Liquid section</strong> with schema settings so content is
+theme-editor editable.</li>
+<li>Replace mock product data (<code>src/lib/data.js</code>) with
+<strong>Shopify products / collections / metafields</strong>.</li>
+<li>Wire &quot;Add to cart&quot; to the <strong>Shopify AJAX Cart API</strong>
+(<code>POST /cart/add.js</code>) and use the real checkout. Delete the
+mock cart (Section 5).</li>
+<li>Keep WebGL as a fixed background canvas behind the Liquid content —
+the pages are already built this way (one persistent canvas; content
+floats above it).</li>
+</ol>
+<ul>
+<li><strong>Pros:</strong> real Shopify cart/checkout/SEO/theme-editor;
+the animation survives intact.</li>
+<li><strong>Cons:</strong> the most integration work; someone owns the
+Three.js/GSAP layer.</li>
+<li><strong>Good for:</strong> the primary storefront / a page that must
+convert and rank.</li>
+</ul>
+<h3 id="path-c--headless-shopify-hydrogen--react-highest-effort">Path C
+— Headless (Shopify Hydrogen / React, highest effort)</h3>
+<p>Because these are already React, the <strong>components port most
+directly</strong> into a <strong>Hydrogen</strong> (React) storefront.
+Animation code moves nearly verbatim; swap the mock cart for Hydrogen&#39;s
+cart and the <strong>Storefront API</strong> for product data; deploy on
+Oxygen (or any Node host).</p>
+<ul>
+<li><strong>Pros:</strong> React components + animation transfer with
+the least rewrite; best long-term DX.</li>
+<li><strong>Cons:</strong> headless is a bigger commitment (hosting,
+routing, SEO, Storefront-API checkout).</li>
+<li><strong>Good for:</strong> a from-scratch headless rebuild.</li>
+</ul>
+<p><strong>Recommendation:</strong> Path A to ship a campaign page fast;
+<strong>Path B for the real store</strong>; Path C only if the whole
+store is going headless.</p>
+<hr />
+<h2 id="5-what-you-must-replace-mock-commerce--shopify">5. What you MUST
+replace (mock commerce → Shopify)</h2>
+<p>Every page ships a <strong>fake, in-memory commerce layer</strong> —
+realistic but 100% local. Before any page goes live, swap these for
+Shopify:</p>
+<table>
+<thead>
+<tr>
+<th>Mock (in the source)</th>
+<th>Replace with (Shopify)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/lib/data.js</code> — names, prices, doses, purities</td>
+<td>Shopify <strong>products / variants / metafields</strong> (or
+Storefront API in headless)</td>
+</tr>
+<tr>
+<td><code>src/lib/cart.jsx</code> — <code>CartProvider</code> /
+<code>useCart</code> (in-memory)</td>
+<td>Shopify <strong>Cart AJAX API</strong> (<code>/cart/add.js</code>,
+<code>/cart.js</code>) or Hydrogen cart</td>
+</tr>
+<tr>
+<td><code>components/StickyCart.jsx</code>, &quot;Add — $X&quot; buttons</td>
+<td>Real add-to-cart + the store&#39;s cart drawer/checkout</td>
+</tr>
+<tr>
+<td>Hard-coded prices in the UI</td>
+<td>Shopify price fields (respect currency/locale)</td>
+</tr>
+<tr>
+<td>&quot;Checkout&quot; (no-op)</td>
+<td>Shopify <strong>checkout</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Prices and product facts in these demos are placeholders — do
+not ship them as real offers.</strong> Point buy buttons at real
+variants and let Shopify own price, tax, and checkout.</p>
+<blockquote>
+<p><strong>Compliance (peptide pages 3–6):</strong> these carry
+<strong>&quot;For laboratory research use only — not for human or veterinary
+use&quot;</strong> and related RUO disclaimers at buy points and in the
+footer. If those products go live, <strong>keep that language</strong>
+and confirm it with whoever owns compliance — it is load-bearing, not
+decoration.</p>
+</blockquote>
+<hr />
+<h2 id="6-robustness-laws--do-not-strip-these-when-porting">6.
+Robustness laws — do NOT strip these when porting</h2>
+<p>Each page is hardened against real failure modes. Preserve these
+behaviors when refactoring into Shopify (they&#39;re cheap and prevent
+&quot;blank page&quot; tickets):</p>
+<ul>
+<li><strong><code>prefers-reduced-motion</code></strong> → renders a
+static, no-autoplay version. Test with the OS &quot;Reduce motion&quot; setting
+on.</li>
+<li><strong>Never-blank WebGL</strong> → if WebGL fails or the GPU sim
+can&#39;t run, a <strong>static SVG/CSS fallback</strong> renders instead of
+an empty canvas. Keep the fallback path.</li>
+<li><strong>Mobile</strong> → lighter/stacked layout, reduced particle
+counts, no custom cursor on touch.</li>
+<li><strong>Cleanup</strong> → animations, tickers, observers, and WebGL
+contexts dispose on unmount (prevents leaks under SPA navigation).</li>
+<li><strong>QA hooks (dev only)</strong> → append <code>?rm=1</code>
+(force reduced motion) or <code>?nogl=1</code> (force the non-WebGL
+fallback) to any page URL to exercise those paths.</li>
+</ul>
+<hr />
+<h2 id="7-per-project-quick-reference">7. Per-project quick
+reference</h2>
+<p>Each project folder has its own
+<strong><code>HANDOFF.md</code></strong> with its stack, entry points,
+the single file that owns its signature animation, and its preview port.
+Start there for that page.</p>
+<p><strong>Shared architecture (all six):</strong>
+<code>index.html</code> → <code>src/main.jsx</code> (mounts React) →
+<code>src/App.jsx</code> (composes sections) →
+<code>src/components/*</code> (DOM sections) + <code>src/three/*</code>
+(WebGL scene) + <code>src/lib/*</code> (scroll, cart, data, helpers).
+One persistent <code>&lt;canvas&gt;</code> is fixed behind the content;
+a global GSAP ScrollTrigger drives the whole page.</p>
+<hr />
+<h2 id="8-licensing--assets">8. Licensing / assets</h2>
+<ul>
+<li><strong>Fonts</strong> bundled via <code>@fontsource*</code> (open
+licenses — OFL/Apache); ship with the build, nothing external to
+load.</li>
+<li><strong>three.js</strong>, <strong>@react-three/fiber &amp;
+drei</strong>, <strong>Lenis</strong>, <strong>split-type</strong> — all
+MIT.</li>
+<li><strong>GSAP</strong> — standard/free build, <strong>no Club
+plugins</strong>. Standard GSAP license applies (covers standard
+commercial web use).</li>
+<li>The animations need <strong>no third-party image/video
+assets</strong> (generated in-shader / in-SVG). Product photography, if
+any, is yours to supply.</li>
+</ul>
+<hr />
+<h2 id="9-questions">9. Questions</h2>
+<p>For Tailscale access + the preview passcode, and for intended
+design/behavior questions, contact the project owner. <strong>Live
+previews are the source of truth for how it should look and move; the
+zips are the source of truth for the code.</strong></p>
+</body>
+</html>
